@@ -4,9 +4,10 @@ int state = 0;
 int main(){
     while(1){
         system("cls");
-        menu(state);
+        Menu(state);
         int ch = getch();
         if(ch == 224){//Arrow
+            _beginthread(SelectBeep, 0, NULL);
             ch = getch();
             if(ch == 72) state--;
             if(ch == 80) state++;

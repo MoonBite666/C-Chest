@@ -1,4 +1,8 @@
 #include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
-void menu(int state);
+#include<windows.h>
+#include<process.h>
+void Menu(int state);
+
+void SelectBeep(void* data);
