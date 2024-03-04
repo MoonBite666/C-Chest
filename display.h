@@ -1,1 +1,1 @@
-void Display_map(int **map);
+void Display_map(int row, int col,int *map);
