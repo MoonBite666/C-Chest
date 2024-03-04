@@ -11,8 +11,8 @@ int main(){
             ch = getch();
             if(ch == 72) state--;
             if(ch == 80) state++;
-            if(state < 0) state = 2;
-            if(state > 2) state = 0;
+            if(state < 0) state = 3;
+            if(state > 3) state = 0;
         }
         if(ch == 13){//Enter
             

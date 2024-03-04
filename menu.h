@@ -5,4 +5,4 @@
 #include<process.h>
 void Menu(int state);
 
-void SelectBeep(void* data);
+void SelectBeep(const void* data);
