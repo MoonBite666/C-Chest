@@ -1,19 +1,29 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "display.h"
 
 
-void Display_map(int row, int col,int *map){
+void Display_data(int data){
     
-    
-    printf("row : %d, col : %d\n", row, col);
-    for(int i = 0; i < row; i++){
-        for(int j = 0; j < col; j++){
-
-            printf("%d ", *((map+i*col) + j));
-
-        }
-        printf("\n");
+    switch(data){
+        case 1:
+            printf("\u26AA");
+            break;
+        case 0:
+            printf("\u2B1C");
+            break;
+        case -1:
+            printf("\u2B50");
+            
+            break;
+        case 2:
+            printf("\u2B1B");
+            break;
+        case 3:
+            printf("\u2B55");
+            break;
+        default:
+            break;
     }
-    system("pause");
+
 }

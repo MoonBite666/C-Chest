@@ -1,4 +1,4 @@
-#define UNUSED(x) (void)(x)
+
 
 #include "menu.h"
 void Menu(int state){
@@ -15,11 +15,7 @@ void Menu(int state){
     printf("\tExit\n");
 }
 
-void SelectBeep(const void* data) {
-    UNUSED(data);
-    Beep(1000, 100);
-    _endthread();
-}
+
 
 void Menu_select(int farthest, int state){
     printf("Select the stage\n");
