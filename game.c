@@ -12,6 +12,12 @@ extern int player[2];
 extern int crt_stage;
 extern int farthest;
 extern WORD map_color[5];
+static HANDLE hOutput;
+static HANDLE hOutBuf;
+static char screen_data[COL*ROW];
+static COORD coord={0,0};
+static DWORD bytes = 0;
+
 
 void Generate_map(int *crt_map, int stage)
 {
@@ -29,6 +35,9 @@ void Load(int stage)
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, map_color[stage]);
     
+    Init_display(&hOutput, &hOutBuf);
+
+
     int crt_map[15][15];
     bool saved = false;
     if(stage < 0) saved = Read_map(crt_map);
@@ -49,6 +58,7 @@ bool Map_cycle(int *crt_map){
     printf("row : %d, col : %d\n", ROW, COL);
     bool win = true;
     for(int i = 0; i < ROW; i++){
+        system("cls");
         for(int j = 0; j < COL; j++){
             int data = *((crt_map+i*COL) + j);
             Display_data(data);
@@ -59,7 +69,8 @@ bool Map_cycle(int *crt_map){
             if(data == 2) win = false;
             
         }
-        printf("\n");
+        ReadConsoleOutputCharacterA(hOutput, screen_data, COL*ROW, coord, &bytes);
+        WriteConsoleOutputCharacterA(hOutBuf, screen_data, COL*ROW, coord, &bytes);
     }
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");

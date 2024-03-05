@@ -2,6 +2,7 @@
 #include "game.h"
 #include "save.h"
 #include "music.h"
+#include "display.h"
 
 extern int crt_stage;
 
@@ -12,7 +13,6 @@ int main(){
     while(1){
         system("cls");
         Menu(ch);
-        
         if(Select(&ch,4)){//Enter
             switch(ch){
                 case 0:

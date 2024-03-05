@@ -9,6 +9,30 @@
 extern WORD map_color[5];
 extern int crt_stage;
 
+
+void Init_display(HANDLE *hOutput, HANDLE *hOutBuf){
+    hOutput=GetStdHandle(STD_OUTPUT_HANDLE);
+
+    hOutBuf = CreateConsoleScreenBuffer(
+        GENERIC_READ | GENERIC_WRITE, 
+        FILE_SHARE_READ | FILE_SHARE_WRITE, 
+        NULL, 
+        CONSOLE_TEXTMODE_BUFFER, 
+        NULL
+    );
+
+    SetConsoleActiveScreenBuffer(hOutBuf);
+
+    // CONSOLE_CURSOR_INFO cci;
+    // cci.bVisible=0;
+    // cci.dwSize=1;
+    // SetConsoleCursorInfo(hOutput, &cci);
+    // SetConsoleCursorInfo(hOutBuf, &cci);
+
+}
+
+
+
 void Print_colored_text(HANDLE hConsole, WORD color, const char* text) {
     SetConsoleTextAttribute(hConsole, color);
     printf("%s", text);
@@ -21,6 +45,7 @@ void Set_background_color(HANDLE hConsole, WORD color){
     SetConsoleTextAttribute(hConsole, (csbi.wAttributes & 0xFFF0) | color);
 
 }
+
 
 void Display_data(int data){
     
