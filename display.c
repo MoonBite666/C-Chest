@@ -5,6 +5,7 @@
 #define PLAYER -1
 #define GOALCHEST 4
 #define GOALPLAYER -2
+#define VOID 9
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +35,9 @@ void Display_data(int data){
             break;
         case GOALPLAYER:
             printf("\u2B50");
+            break;
+        case VOID:
+            printf(" ");
             break;
         default:
             break;

@@ -5,6 +5,7 @@
 int state = 0;
 int ch = 0;
 int main(){
+    
     SetConsoleOutputCP(CP_UTF8);
     while(1){
         system("cls");

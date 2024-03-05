@@ -1,4 +1,5 @@
-
+#define ROW 15
+#define COL 15
 
 #include "game.h"
 #include "menu.h"
@@ -6,33 +7,38 @@
 #include "display.h"
 #include "maps.h"
 
+void Generate_map(int *crt_map, int stage)
+{
+    for(int i = 0; i < ROW; i++){
+        for(int j = 0; j < COL; j++){
+            *(crt_map+i*COL + j) = map[stage][i][j];
+        }
+    }
+}
+
 void Load(int stage)
 {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | BACKGROUND_BLUE);
+    int crt_map[15][15];
+    Generate_map(crt_map, stage);
     while(1){
-        switch(stage){
-        case 0:
-            if(Map_cycle(10, 10, map01)) return;
+        if(Map_cycle(crt_map)){
+            SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        default:
-            break;
-        
         }
+
+        
     }
     
 }
 
-bool Map_cycle(int row, int col,const int *map){
-    printf("row : %d, col : %d\n", row, col);
+bool Map_cycle(int *crt_map){
+    printf("row : %d, col : %d\n", ROW, COL);
     bool win = true;
-    for(int i = 0; i < row; i++){
-        for(int j = 0; j < col; j++){
-            int data = *((map+i*col) + j);
+    for(int i = 0; i < ROW; i++){
+        for(int j = 0; j < COL; j++){
+            int data = *((crt_map+i*COL) + j);
             Display_data(data);
             if(data == -1 || data == -2){
                 player[0] = i;
@@ -49,7 +55,7 @@ bool Map_cycle(int row, int col,const int *map){
         system("pause");
         return 1;
     }
-    Next_frame(col, map);
+    Next_frame(crt_map);
     system("cls");
     return 0;
 }
@@ -76,37 +82,39 @@ bool Select(int *sel, int row)
 bool Movable(int target, int target_behind){
     if(target == WALL) return false;
     if(target == CHEST || target == GOALCHEST){
-        if(target_behind == WALL || target_behind == CHEST || target_behind == GOALCHEST) return false;
+        if(target_behind == WALL || target_behind == CHEST || target_behind == GOALCHEST){
+            return false;
+        }
     }
     return true;
 }
 
-void Move(int target, int *map, int dir, int col){
+void Move(int target, int *crt_map, int dir){
     switch(dir){
         case 0:
-            if(*(map+target) == CHEST || *(map+target) == GOALCHEST) *(map+target+col) = 
-            (*(map+target+col)==GOAL)?GOALCHEST:CHEST;
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target+COL) = 
+            (*(crt_map+target+COL)==GOAL)?GOALCHEST:CHEST;
             
-            *(map+target) = (*(map+target)==GOAL || *(map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
-            *(map+target-col) = (*(map+target-col)==GOALPLAYER)?GOAL:ROAD;
+            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
+            *(crt_map+target-COL) = (*(crt_map+target-COL)==GOALPLAYER)?GOAL:ROAD;
             break;
         case 1:
-            if(*(map+target) == CHEST || *(map+target) == GOALCHEST) *(map+target-col) = 
-            (*(map+target-col)==GOAL)?GOALCHEST:CHEST;
-            *(map+target) = (*(map+target)==GOAL || *(map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
-            *(map+target+col) = (*(map+target+col)==GOALPLAYER)?GOAL:ROAD;
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target-COL) = 
+            (*(crt_map+target-COL)==GOAL)?GOALCHEST:CHEST;
+            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
+            *(crt_map+target+COL) = (*(crt_map+target+COL)==GOALPLAYER)?GOAL:ROAD;
             break;
         case 2:
-            if(*(map+target) == CHEST || *(map+target) == GOALCHEST) *(map+target-1) = 
-            (*(map+target-1)==GOAL)?GOALCHEST:CHEST;
-            *(map+target) = (*(map+target)==GOAL || *(map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
-            *(map+target+1) = (*(map+target+1)==GOALPLAYER)?GOAL:ROAD;
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target-1) = 
+            (*(crt_map+target-1)==GOAL)?GOALCHEST:CHEST;
+            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
+            *(crt_map+target+1) = (*(crt_map+target+1)==GOALPLAYER)?GOAL:ROAD;
             break;
         case 3:
-            if(*(map+target) == CHEST || *(map+target) == GOALCHEST) *(map+target+1) = 
-            (*(map+target+1)==GOAL)?GOALCHEST:CHEST;
-            *(map+target) = (*(map+target)==GOAL || *(map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
-            *(map+target-1) = (*(map+target-1)==GOALPLAYER)?GOAL:ROAD;
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target+1) = 
+            (*(crt_map+target+1)==GOAL)?GOALCHEST:CHEST;
+            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
+            *(crt_map+target-1) = (*(crt_map+target-1)==GOALPLAYER)?GOAL:ROAD;
             break;
         default:
             break;
@@ -114,28 +122,26 @@ void Move(int target, int *map, int dir, int col){
     _beginthread(&MoveBeep, 0, NULL);
 }
 
-bool Next_frame(int col, int *map)
-
-
+void Next_frame(int *crt_map)
 {
     int ch = getch();
-    int addr = player[0]*col + player[1];
+    int addr = player[0]*COL + player[1];
     if(ch == 224){//Arrow
         ch = getch();
         if(ch == 80){//↓
-            if(Movable(*(map+addr+col), *(map+addr+col*2))) Move(addr+col, map, 0, col);
+            if(Movable(*(crt_map+addr+COL), *(crt_map+addr+COL*2))) Move(addr+COL, crt_map, 0);
             else _beginthread(&FailedBeep, 0, NULL);
         }
         if(ch == 72){ //↑
-            if(Movable(*(map+addr-col), *(map+addr-col*2))) Move(addr-col, map, 1, col);
+            if(Movable(*(crt_map+addr-COL), *(crt_map+addr-COL*2))) Move(addr-COL, crt_map, 1);
             else _beginthread(&FailedBeep, 0, NULL);
         }
         if(ch == 75){//←
-            if(Movable(*(map+addr-1), *(map+addr-2))) Move(addr-1, map, 2, col);
+            if(Movable(*(crt_map+addr-1), *(crt_map+addr-2))) Move(addr-1, crt_map, 2);
             else _beginthread(&FailedBeep, 0, NULL);
         }
         if(ch == 77){ //→
-            if(Movable(*(map+addr+1), *(map+addr+2))) Move(addr+1, map, 3, col);
+            if(Movable(*(crt_map+addr+1), *(crt_map+addr+2))) Move(addr+1, crt_map, 3);
             else _beginthread(&FailedBeep, 0, NULL);
         }
     }
