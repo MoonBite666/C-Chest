@@ -4,5 +4,6 @@
 #include<windows.h>
 #include<process.h>
 void Menu(int state);
-void Menu_select();
+void Menu_select(int farthest, int state);
+void Menu_ingame(int state);
 void SelectBeep(const void* data);

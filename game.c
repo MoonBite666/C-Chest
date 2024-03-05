@@ -1,11 +1,11 @@
-#define ROW 15
-#define COL 15
-
+#include <stdbool.h>
 #include "game.h"
 #include "menu.h"
 #include "music.h"
 #include "display.h"
 #include "maps.h"
+#include "save.h"
+#include "define.h"
 
 void Generate_map(int *crt_map, int stage)
 {
@@ -21,7 +21,13 @@ void Load(int stage)
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | BACKGROUND_BLUE);
     int crt_map[15][15];
-    Generate_map(crt_map, stage);
+    bool saved = false;
+    if(stage < 0) saved = Read_map(crt_map);
+    if(saved != true){
+        stage = 0;
+        Generate_map(crt_map, stage);
+    }
+    crt_stage = stage;
     while(1){
         if(Map_cycle(crt_map)){
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
@@ -143,6 +149,29 @@ void Next_frame(int *crt_map)
         if(ch == 77){ //→
             if(Movable(*(crt_map+addr+1), *(crt_map+addr+2))) Move(addr+1, crt_map, 3);
             else _beginthread(&FailedBeep, 0, NULL);
+        }
+    }
+    if(ch == 27){//ESC
+        int ch = 0;
+        while(1){
+            system("cls");
+            Menu_ingame(ch);
+            if(Select(&ch,4)){
+                if(ch == 0){
+                    Generate_map(crt_map, crt_stage);
+                    break;
+                }
+                if(ch == 1){
+                    return;
+                }
+                if(ch == 2){
+                    Save_map(crt_map);
+                    break;
+                }
+                if(ch == 3){
+                    exit(0);
+                }
+            }
         }
     }
 }

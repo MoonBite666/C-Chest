@@ -34,3 +34,15 @@ void Menu_select(int farthest, int state){
     
 
 }
+
+void Menu_ingame(int state){
+    printf(" \u25fc Select the menu\n");
+    if(state == 0) printf("->");
+    printf("\tRestart\n");
+    if(state == 1) printf("->");
+    printf("\tContinue\n");
+    if(state == 2) printf("->");
+    printf("\tSave\n");
+    if(state == 3) printf("->");
+    printf("\tExit\n");
+}

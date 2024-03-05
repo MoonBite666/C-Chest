@@ -17,7 +17,7 @@ int main(){
                     Load(0);
                     break;
                 case 1:
-                    Load(crt_stage);
+                    Load(-1);
                     break;
                 case 2:
                     int ch1 = 0;
