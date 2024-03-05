@@ -163,24 +163,25 @@ bool Next_frame(int *crt_map)
         }
     }
     if(ch == 27){//ESC
-        int ch = 0;
+        int ch1 = 0;
         while(1){
             system("cls");
-            Menu_ingame(ch);
-            if(Select(&ch,4)){
-                if(ch == 0){
-                    Generate_map(crt_map, crt_stage);
-                    break;
-                }
-                if(ch == 1){
-                    return;
-                }
-                if(ch == 2){
-                    Save_map(crt_map);
-                    break;
-                }
-                if(ch == 3){
-                    return 1;
+            Menu_ingame(ch1);
+            if(Select(&ch1,4)){
+                switch(ch1){
+                    case 0:
+                        Generate_map(crt_map, crt_stage);
+                        break;
+                    case 1:
+                        return 0;
+                    case 2:
+                        Save_map(crt_map);
+                        break;
+                    case 3:
+                        return 1;
+                        break;
+                    default:
+                        break;
                 }
             }
         }

@@ -51,7 +51,6 @@ void Display_data(int data){
             break;
         case EIGHTSTAR:
             Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2728");
-            // printf("\u2605");
             break;
         default:
             break;
