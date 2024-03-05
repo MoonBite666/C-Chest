@@ -1,11 +1,10 @@
 #include "menu.h"
 #include "game.h"
 #include "save.h"
-
+#include "music.h"
 int state = 0;
 int ch = 0;
 int main(){
-    
     SetConsoleOutputCP(CP_UTF8);
     while(1){
         system("cls");
