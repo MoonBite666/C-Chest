@@ -21,15 +21,26 @@ int main(){
                 case 1:
                     Load(-1);
                     break;
-                case 2:
+                case 2://Stage Menu
                     int ch1 = 0;
-                    while(1){
+                    bool endmenu = 0;
+                    while(endmenu != 1){
                         system("cls");
-                        Menu_select(crt_stage);
+                        Menu_select(ch1);
                         if(Select(&ch1,4)){
-                            if(ch1 == 3) break;
-                            else{
-                                break;//todo
+                            switch(ch1){
+                                case 0:
+                                    Load(0);
+                                    break;
+                                case 1:
+                                    Load(1);
+                                    break;
+                                case 2:
+                                    Load(2);
+                                    break;
+                                case 3:
+                                    endmenu = 1;
+                                    break;
                             }
                         }
                     }

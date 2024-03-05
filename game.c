@@ -24,6 +24,8 @@ void Generate_map(int *crt_map, int stage)
 
 void Load(int stage)
 {
+    system("cls");
+    if(stage > 5) return;
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, map_color[stage]);
     
@@ -31,18 +33,14 @@ void Load(int stage)
     bool saved = false;
     if(stage < 0) saved = Read_map(crt_map);
     if(saved != true){
-        stage = 0;
+        stage = farthest;
         Generate_map(crt_map, stage);
     }
-    crt_stage = stage;
     while(1){
         if(Map_cycle(crt_map)){
-            SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-            break;
+            SetConsoleTextAttribute(hConsole, BLACK);
+            return;
         }
-
-        
     }
     
 }
@@ -64,12 +62,17 @@ bool Map_cycle(int *crt_map){
         printf("\n");
     }
     if(win){
-        printf("You win!\n");
+        printf("You win!\nPress Enter to the next stage!\n");
+        crt_stage++;
         farthest = crt_stage;
-        system("pause");
+        int ch = getch();
+        if(ch == 13){//Enter
+            Load(crt_stage);
+            return 1;
+        }
         return 1;
     }
-    Next_frame(crt_map);
+    if(Next_frame(crt_map)) return 1;
     system("cls");
     return 0;
 }
@@ -136,7 +139,7 @@ void Move(int target, int *crt_map, int dir){
     _beginthread(&MoveBeep, 0, NULL);
 }
 
-void Next_frame(int *crt_map)
+bool Next_frame(int *crt_map)
 {
     int ch = getch();
     int addr = player[0]*COL + player[1];
@@ -177,9 +180,10 @@ void Next_frame(int *crt_map)
                     break;
                 }
                 if(ch == 3){
-                    exit(0);
+                    return 1;
                 }
             }
         }
     }
+    return 0;
 }

@@ -42,14 +42,16 @@ void Display_data(int data){
             break;
         case GOALCHEST:
             Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2B1B");
-            // printf("\u2B1B");
             break;
         case GOALPLAYER:
             printf("\u2B50");
             break;
         case VOIDBLOCK:
             Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN, "\u2B1B");
-            // printf("\u26AA");
+            break;
+        case EIGHTSTAR:
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2728");
+            // printf("\u2605");
             break;
         default:
             break;

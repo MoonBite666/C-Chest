@@ -22,14 +22,15 @@ void Menu(int state){
 void Menu_select(int state){
     printf("Select the stage\n");
     if(state == 0) printf("->");
-    printf("Stage 0 : Initial Test\n");
-    if(state == 1){
-        if(farthest >= 1) printf("->"); else printf(" X ");
-    }
+    printf("Stage 0 : Build From Source\n");
+    if(state == 1 && farthest >= 1){
+        printf("->");
+    }else if(state == 1) printf(" X ");
+    
     printf("Stage 1 : 1 Test\n");
-    if(state == 2){
-        if(farthest >= 2) printf("->"); else printf(" X ");
-    }
+    if(state == 2 && farthest >= 2){
+        printf("->"); 
+    }else if(state == 2) printf(" X ");
     printf("Stage 2 : 2 Test\n");
     if(state == 3) printf("->");
     printf("Back\n");
