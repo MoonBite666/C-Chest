@@ -13,6 +13,8 @@ extern int crt_stage;
 extern int farthest;
 extern WORD map_color[5];
 
+static COORD coord = {0,0};
+
 void Generate_map(int *crt_map, int stage)
 {
     for(int i = 0; i < ROW; i++){
@@ -73,7 +75,7 @@ bool Map_cycle(int *crt_map){
         return 1;
     }
     if(Next_frame(crt_map)) return 1;
-    system("cls");
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     return 0;
 }
 

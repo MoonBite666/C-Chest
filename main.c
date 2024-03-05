@@ -5,6 +5,11 @@
 
 extern int crt_stage;
 
+static COORD coord = {0,0};
+
+
+
+
 int state = 0;
 int ch = 0;
 int main(){
