@@ -2,6 +2,9 @@
 #include "game.h"
 #include "save.h"
 #include "music.h"
+
+extern int crt_stage;
+
 int state = 0;
 int ch = 0;
 int main(){
@@ -22,7 +25,7 @@ int main(){
                     int ch1 = 0;
                     while(1){
                         system("cls");
-                        Menu_select(crt_stage, ch1);
+                        Menu_select(crt_stage);
                         if(Select(&ch1,4)){
                             if(ch1 == 3) break;
                             else{

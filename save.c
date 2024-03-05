@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include <stdbool.h>
-
 #include "save.h"
+
+int crt_stage;
+int farthest;
 
 void Save_map(int *crt_map){
     

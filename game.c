@@ -7,6 +7,12 @@
 #include "save.h"
 #include "define.h"
 
+extern int map[1][15][15];
+extern int player[2];
+extern int crt_stage;
+extern int farthest;
+extern WORD map_color[5];
+
 void Generate_map(int *crt_map, int stage)
 {
     for(int i = 0; i < ROW; i++){
@@ -19,7 +25,8 @@ void Generate_map(int *crt_map, int stage)
 void Load(int stage)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | BACKGROUND_BLUE);
+    SetConsoleTextAttribute(hConsole, map_color[stage]);
+    
     int crt_map[15][15];
     bool saved = false;
     if(stage < 0) saved = Read_map(crt_map);
@@ -31,6 +38,7 @@ void Load(int stage)
     while(1){
         if(Map_cycle(crt_map)){
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
             break;
         }
 
@@ -57,7 +65,7 @@ bool Map_cycle(int *crt_map){
     }
     if(win){
         printf("You win!\n");
-        // _beginthread(&WinBeep, 0, NULL);
+        farthest = crt_stage;
         system("pause");
         return 1;
     }

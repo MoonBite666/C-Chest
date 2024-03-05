@@ -1,6 +1,8 @@
-
-
+#include "save.h"
 #include "menu.h"
+
+extern int farthest;
+
 void Menu(int state){
     //printf(" \u25fd Select the menu\n");
     printf(" \u25fc Select the menu\n");
@@ -17,7 +19,7 @@ void Menu(int state){
 
 
 
-void Menu_select(int farthest, int state){
+void Menu_select(int state){
     printf("Select the stage\n");
     if(state == 0) printf("->");
     printf("Stage 0 : Initial Test\n");
