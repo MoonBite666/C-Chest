@@ -11,7 +11,8 @@ extern int map[1][15][15];
 extern int player[2];
 extern int crt_stage;
 extern int farthest;
-extern WORD map_color[5];
+extern WORD ground_color[5];
+extern char stage_name[5][20];
 
 static COORD coord = {0,0};
 
@@ -29,14 +30,21 @@ void Load(int stage)
     system("cls");
     if(stage > 5) return;
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, map_color[stage]);
+    SetConsoleTextAttribute(hConsole, ground_color[stage]);
     
     int crt_map[15][15];
     bool saved = false;
     if(stage < 0) saved = Read_map(crt_map);
     if(saved != true){
-        stage = farthest;
-        Generate_map(crt_map, stage);
+        if(stage == 0){//New game
+            crt_stage = 0;
+            Generate_map(crt_map, 0);
+        }
+        else{
+            stage = farthest;
+            Generate_map(crt_map, stage);
+        }
+        
     }
     while(1){
         if(Map_cycle(crt_map)){
@@ -48,7 +56,7 @@ void Load(int stage)
 }
 
 bool Map_cycle(int *crt_map){
-    printf("row : %d, col : %d\n", ROW, COL);
+    printf("Stage %d : %s\n",crt_stage, stage_name[crt_stage]);
     bool win = true;
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){
@@ -63,6 +71,7 @@ bool Map_cycle(int *crt_map){
         }
         printf("\n");
     }
+    printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
         crt_stage++;

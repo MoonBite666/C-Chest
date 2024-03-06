@@ -6,13 +6,14 @@
 #include "maps.h"
 #include "save.h"
 
-extern WORD map_color[5];
+extern WORD ground_color[5];
+extern WORD void_color[5];
 extern int crt_stage;
 
 void Print_colored_text(HANDLE hConsole, WORD color, const char* text) {
     SetConsoleTextAttribute(hConsole, color);
     printf("%s", text);
-    SetConsoleTextAttribute(hConsole, map_color[crt_stage]); // Reset to stage colors
+    SetConsoleTextAttribute(hConsole, ground_color[crt_stage]); // Reset to stage colors
 }
 
 void Set_background_color(HANDLE hConsole, WORD color){
@@ -47,7 +48,7 @@ void Display_data(int data){
             printf("\u2B50");
             break;
         case VOIDBLOCK:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN, "\u2B1B");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "\u2B1B");
             break;
         case EIGHTSTAR:
             Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2728");
@@ -56,4 +57,16 @@ void Display_data(int data){
             break;
     }
 
+}
+
+void Set_display_size(short width, short height){
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Set the screen buffer size
+    COORD coord = {width, height};
+    SetConsoleScreenBufferSize(hConsole, coord);
+
+    // Set the window size
+    SMALL_RECT rect = {0, 0, width - 1, height - 1};
+    SetConsoleWindowInfo(hConsole, TRUE, &rect);
 }
