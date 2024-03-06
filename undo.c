@@ -25,7 +25,6 @@ int Stack_IsFull(Stack* s) {
 
 void Stack_Push(Stack* s, int* value) {
     if (Stack_IsFull(s)) {
-        printf("Stack is full!\n");
         return;
     }
     for (int i = 0; i < ROW; i++) {
@@ -39,7 +38,6 @@ void Stack_Push(Stack* s, int* value) {
 
 int** Stack_Pop(Stack* s) {
     if (Stack_IsEmpty(s)) {
-        printf("Stack is empty!\n");
         return NULL;
     }
     return s->arr[s->top--];
