@@ -56,28 +56,3 @@ void Stack_Destroy(Stack* s) {
 }
 
 
-// int main() {
-//     Stack s;
-//     Stack_Init(&s);
-//     int** matrix = (int**)malloc(ROW * sizeof(int*));
-//     for (int i = 0; i < ROW; i++) {
-//         matrix[i] = (int*)malloc(COL * sizeof(int));
-//         for (int j = 0; j < COL; j++) {
-//             matrix[i][j] = i * COL + j;
-//         }
-//     }
-//     Stack_Push(&s, matrix);
-//     int** popped_matrix = Stack_Pop(&s);
-//     for (int i = 0; i < ROW; i++) {
-//         for (int j = 0; j < COL; j++) {
-//             printf("%d ", popped_matrix[i][j]);
-//         }
-//         printf("\n");
-//     }
-//     Stack_Destroy(&s);
-//     for (int i = 0; i < ROW; i++) {
-//         free(matrix[i]);
-//     }
-//     free(matrix);
-//     return 0;
-// }

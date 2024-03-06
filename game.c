@@ -79,7 +79,7 @@ bool Map_cycle(int *crt_map){
     }
     printf("Press \"Arrow Keys (← → ↑ ↓)\" to move\nPress Key \"Z\" to Undo the last step. \n");
     printf("Press \"ESC\" to open the menu\n");
-    Stack_Push(&undo_stack, crt_map);
+    
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
         crt_stage++;
@@ -95,6 +95,7 @@ bool Map_cycle(int *crt_map){
     
     if(Next_frame(crt_map)) return 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    
     return 0;
 }
 
@@ -128,6 +129,7 @@ bool Movable(int target, int target_behind){
 }
 
 void Move(int target, int *crt_map, int dir){
+    Stack_Push(&undo_stack, crt_map);
     switch(dir){
         case 0:
             if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target+COL) = 
@@ -221,7 +223,7 @@ bool Next_frame(int *crt_map)
             }
         }
     }
-    if(ch == 122){//Undo feature
+    if(ch == 122){//Z Undo feature
         Undo_map(crt_map);
     }
     return 0;
