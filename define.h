@@ -1,3 +1,4 @@
+#define MAXUNDO 15
 #define ROW 15
 #define COL 15
 #define WALL 1
