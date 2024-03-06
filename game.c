@@ -6,6 +6,8 @@
 #include "maps.h"
 #include "save.h"
 #include "define.h"
+#include "undo.h"
+
 
 extern int map[1][15][15];
 extern int player[2];
@@ -15,6 +17,7 @@ extern WORD ground_color[5];
 extern char stage_name[5][20];
 
 static COORD coord = {0,0};
+static Stack undo_stack;
 
 void Generate_map(int *crt_map, int stage)
 {
@@ -46,6 +49,7 @@ void Load(int stage)
         }
         
     }
+    Stack_Init(&undo_stack);
     while(1){
         if(Map_cycle(crt_map)){
             SetConsoleTextAttribute(hConsole, BLACK);
@@ -61,28 +65,34 @@ bool Map_cycle(int *crt_map){
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){
             int data = *((crt_map+i*COL) + j);
-            Display_data(data);
+
+            Display_data(data); // Display the data
+
             if(data == -1 || data == -2){
                 player[0] = i;
                 player[1] = j;
-            }
-            if(data == 2) win = false;
-            
+            } //Mark player's position
+
+            if(data == 2) win = false; // Check if win
         }
         printf("\n");
     }
-    printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
+    printf("Press \"Arrow Keys (← → ↑ ↓)\" to move\nPress Key \"Z\" to Undo the last step. \n");
+    printf("Press \"ESC\" to open the menu\n");
+    Stack_Push(&undo_stack, crt_map);
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
         crt_stage++;
         farthest = crt_stage;
         int ch = getch();
         if(ch == 13){//Enter
+            Stack_Destroy(&undo_stack);
             Load(crt_stage);
             return 1;
         }
         return 1;
     }
+    
     if(Next_frame(crt_map)) return 1;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     return 0;
@@ -150,6 +160,20 @@ void Move(int target, int *crt_map, int dir){
     _beginthread(&MoveBeep, 0, NULL);
 }
 
+void Undo_map(int* crt_map) {
+    int** last_map = Stack_Pop(&undo_stack);
+    if (last_map != NULL) {
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                int data = last_map[i][j];
+                *((crt_map+i*COL) + j) = data;
+            }
+        }
+    }
+}
+    
+
+
 bool Next_frame(int *crt_map)
 {
     int ch = getch();
@@ -196,6 +220,9 @@ bool Next_frame(int *crt_map)
                 }
             }
         }
+    }
+    if(ch == 122){//Undo feature
+        Undo_map(crt_map);
     }
     return 0;
 }

@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 
 void Generate_map(int *crt_map, int stage);
@@ -8,5 +7,6 @@ bool Next_frame(int *crt_map);
 void Move(int target, int *crt_map, int dir);
 bool Movable(int target, int target_behind);
 bool Map_cycle(int *crt_map);
+void Undo_map(int *crt_map);
 
 bool Checkwin(int *map);
