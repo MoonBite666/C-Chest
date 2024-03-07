@@ -1,6 +1,5 @@
 #include "menu.h"
 #include "game.h"
-#include "save.h"
 #include "music.h"
 #include "display.h"
 extern int crt_stage;
@@ -12,7 +11,6 @@ int state = 0;
 int ch = 0;
 int main(){
     SetConsoleOutputCP(CP_UTF8);
-    // Set_display_size(100, 50);
     while(1){
         system("cls");
         Menu(ch);

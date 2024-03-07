@@ -4,7 +4,6 @@
 #include "music.h"
 #include "display.h"
 #include "maps.h"
-#include "save.h"
 #include "define.h"
 
 extern int map[1][15][15];
@@ -15,6 +14,7 @@ extern WORD ground_color[5];
 extern char stage_name[5][20];
 
 static COORD coord = {0,0};
+static Stack history_command;
 
 void Generate_map(int *crt_map, int stage)
 {
@@ -27,8 +27,11 @@ void Generate_map(int *crt_map, int stage)
 
 void Load(int stage)
 {
+    Stack_destroy(&history_command);
+    Stack_init(&history_command);
+
     system("cls");
-    if(stage > 5) return;
+    if(stage > 5) return;//any new game mode can be added here
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, ground_color[stage]);
     
@@ -117,32 +120,37 @@ bool Movable(int target, int target_behind){
     return true;
 }
 
+void Move_chest(int *crt_map, int chest_pos, int target_pos){
+    *(crt_map+target_pos) = (*(crt_map+target_pos)==GOAL)?GOALCHEST:CHEST;
+    *(crt_map+chest_pos) = (*(crt_map+chest_pos)==GOAL || *(crt_map+chest_pos)==GOALCHEST)?GOAL:ROAD;
+}
+
+void Move_player(int *crt_map, int player_pos, int target_pos){
+    *(crt_map+target_pos) = (*(crt_map+target_pos)==GOAL)?GOALPLAYER:PLAYER;
+    *(crt_map+player_pos) = (*(crt_map+player_pos)==GOALPLAYER)?GOAL:ROAD;
+}
+
 void Move(int target, int *crt_map, int dir){
+    Command command;
+    command.dir = dir;
+    command.target = target;
+    Stack_push(&history_command, command);//Add command history
     switch(dir){
-        case 0:
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target+COL) = 
-            (*(crt_map+target+COL)==GOAL)?GOALCHEST:CHEST;
-            
-            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
-            *(crt_map+target-COL) = (*(crt_map+target-COL)==GOALPLAYER)?GOAL:ROAD;
+        case 0://DOWN
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target+COL);
+            Move_player(crt_map, target-COL, target);
             break;
-        case 1:
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target-COL) = 
-            (*(crt_map+target-COL)==GOAL)?GOALCHEST:CHEST;
-            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target)==GOALCHEST)?GOALPLAYER:PLAYER;
-            *(crt_map+target+COL) = (*(crt_map+target+COL)==GOALPLAYER)?GOAL:ROAD;
+        case 1://UP
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target-COL);
+            Move_player(crt_map, target+COL, target);
             break;
-        case 2:
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target-1) = 
-            (*(crt_map+target-1)==GOAL)?GOALCHEST:CHEST;
-            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
-            *(crt_map+target+1) = (*(crt_map+target+1)==GOALPLAYER)?GOAL:ROAD;
+        case 2://LEFT
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target-1);
+            Move_player(crt_map, target+1, target);
             break;
-        case 3:
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) *(crt_map+target+1) = 
-            (*(crt_map+target+1)==GOAL)?GOALCHEST:CHEST;
-            *(crt_map+target) = (*(crt_map+target)==GOAL || *(crt_map+target) == GOALCHEST)?GOALPLAYER:PLAYER;
-            *(crt_map+target-1) = (*(crt_map+target-1)==GOALPLAYER)?GOAL:ROAD;
+        case 3://RIGHT
+            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target+1);
+            Move_player(crt_map, target-1, target);
             break;
         default:
             break;
@@ -156,19 +164,19 @@ bool Next_frame(int *crt_map)
     int addr = player[0]*COL + player[1];
     if(ch == 224){//Arrow
         ch = getch();
-        if(ch == 80){//↓
+        if(ch == DOWN){
             if(Movable(*(crt_map+addr+COL), *(crt_map+addr+COL*2))) Move(addr+COL, crt_map, 0);
             else _beginthread(&FailedBeep, 0, NULL);
         }
-        if(ch == 72){ //↑
+        if(ch == UP){
             if(Movable(*(crt_map+addr-COL), *(crt_map+addr-COL*2))) Move(addr-COL, crt_map, 1);
             else _beginthread(&FailedBeep, 0, NULL);
         }
-        if(ch == 75){//←
+        if(ch == LEFT){
             if(Movable(*(crt_map+addr-1), *(crt_map+addr-2))) Move(addr-1, crt_map, 2);
             else _beginthread(&FailedBeep, 0, NULL);
         }
-        if(ch == 77){ //→
+        if(ch == RIGHT){
             if(Movable(*(crt_map+addr+1), *(crt_map+addr+2))) Move(addr+1, crt_map, 3);
             else _beginthread(&FailedBeep, 0, NULL);
         }
@@ -197,5 +205,44 @@ bool Next_frame(int *crt_map)
             }
         }
     }
+    if(ch == 122){//Undo
+        Undo_command(crt_map, &history_command);
+    }
     return 0;
+}
+
+void Undo_command(int *crt_map, Stack *s){
+    Command last_command = Stack_pop(s);
+    int dir = last_command.dir;
+    int target = last_command.target;
+    switch(dir){
+        case 0://Last time: DOWN
+            Move_player(crt_map, target, target-COL);
+            if(*(crt_map+target+COL) == CHEST || *(crt_map+target+COL) == GOALCHEST){
+                Move_chest(crt_map, target+COL, target);
+            }
+            break;
+        case 1://Last time: UP
+            Move_player(crt_map, target, target+COL);
+            if(*(crt_map+target-COL) == CHEST || *(crt_map+target-COL) == GOALCHEST){
+                Move_chest(crt_map, target-COL, target);
+            }
+            break;
+        case 2://Last time: LEFT
+            Move_player(crt_map, target, target+1);
+            if(*(crt_map+target-1) == CHEST || *(crt_map+target-1) == GOALCHEST){
+                Move_chest(crt_map, target-1, target);
+            }
+            break;
+        case 3://Last time: RIGHT
+            Move_player(crt_map, target, target-1);
+            if(*(crt_map+target+1) == CHEST || *(crt_map+target+1) == GOALCHEST){
+                Move_chest(crt_map, target+1, target);
+            }
+            break;
+        default:
+            break;
+    }
+    //Add undo se here
+    
 }

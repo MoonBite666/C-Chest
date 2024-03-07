@@ -13,7 +13,9 @@ A windows console Sokoban game
 
 ## Todo list
 
-- [ ]Menu in game
-- [ ]Undo feature
-- [ ]Save feature
+- [x]Menu in game
+- [x]Undo feature
+- [x]Save feature
+- [ ]Timers
+- [ ]Neat UI
 - [ ]More BGM and SE
