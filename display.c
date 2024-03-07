@@ -27,31 +27,31 @@ void Display_data(int data){
     
     switch(data){
         case WALL:
-            printf("\u26AA");
+            printf("口");
             break;
         case ROAD:
-            printf("\u2B1C");
+            printf("  ");
             break;
         case PLAYER:
-            printf("\u2B50");
+            printf("人");
             break;
         case CHEST:
-            printf("\u2B1B");
+            printf("箱");
             break;
         case GOAL:
-            printf("\u2B55");
+            printf("乂");
             break;
         case GOALCHEST:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2B1B");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "箱");
             break;
         case GOALPLAYER:
-            printf("\u2B50");
+            printf("人");
             break;
         case VOIDBLOCK:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "\u2B1B");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "  ");
             break;
         case EIGHTSTAR:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "\u2728");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "星");
             break;
         default:
             break;
