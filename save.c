@@ -3,8 +3,12 @@
 #include "save.h"
 
 
-int crt_stage;
-int farthest;
+int crt_stage = 0;
+int farthest = 0;
+
+int crt_time[MAX_STAGE] = {0, 0, 0, 0, 0};
+int best_time[MAX_STAGE] = {0, 0, 0, 0, 0};
+
 
 void Save_map(const int *crt_map){
     
@@ -73,4 +77,11 @@ void Stack_destroy(Stack* s) {
         s->top = -1;
     }
     
+}
+
+void Save_time(int stage, int time){
+    if(best_time[stage] == 0 || best_time[stage] > time){
+        best_time[stage] = time;
+    }
+    crt_time[stage] = time;
 }

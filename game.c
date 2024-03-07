@@ -5,16 +5,21 @@
 #include "display.h"
 #include "maps.h"
 #include "define.h"
+#include "timer.h"
 
-extern int map[1][15][15];
+extern int map[MAX_STAGE][15][15];
 extern int player[2];
 extern int crt_stage;
 extern int farthest;
-extern WORD ground_color[5];
-extern char stage_name[5][20];
+extern WORD ground_color[MAX_STAGE];
+extern char stage_name[MAX_STAGE][20];
+extern int crt_time[MAX_STAGE];
+extern int best_time[MAX_STAGE];
 
 static COORD coord = {0,0};
 static Stack history_command;
+
+static Timer timer;
 
 void Generate_map(int *crt_map, int stage)
 {
@@ -25,10 +30,18 @@ void Generate_map(int *crt_map, int stage)
     }
 }
 
+void Init_timer(){
+    timer.time = 0;
+    timer.end = 0;
+    _beginthread(&Start_timer, 0, &timer);
+}
+
 void Load(int stage)
 {
     Stack_destroy(&history_command);
     Stack_init(&history_command);
+
+    Init_timer();
 
     system("cls");
     if(stage > 5) return;//any new game mode can be added here
@@ -51,6 +64,7 @@ void Load(int stage)
     }
     while(1){
         if(Map_cycle(crt_map)){
+            Stack_destroy(&history_command);
             SetConsoleTextAttribute(hConsole, BLACK);
             return;
         }
@@ -60,6 +74,7 @@ void Load(int stage)
 
 bool Map_cycle(int *crt_map){
     printf("Stage %d : %s\n",crt_stage, stage_name[crt_stage]);
+    printf("Time: %d\n", timer.time);
     bool win = true;
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){

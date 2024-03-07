@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "save.h"
 void Generate_map(int *crt_map, int stage);
+void Init_timer();
 void Load(int stage);
 bool Select(int *sel, int row);
 bool Next_frame(int *crt_map);

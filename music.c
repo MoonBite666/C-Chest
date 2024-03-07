@@ -1,7 +1,7 @@
-#define UNUSED(x) (void)(x)
 #include <windows.h>
 #include <process.h>
 #include "music.h"
+#include "define.h"
 
 void SelectBeep(const void* data) {
     UNUSED(data);

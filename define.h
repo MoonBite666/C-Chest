@@ -1,6 +1,8 @@
 #define ROW 15
 #define COL 15
 
+#define MAX_STAGE 5
+
 #define WALL 1
 #define ROAD 0
 #define CHEST 2
@@ -19,3 +21,5 @@
 #define RIGHT 77
 
 #define MAX_UNDO 10000
+
+#define UNUSED(x) (void)(x)

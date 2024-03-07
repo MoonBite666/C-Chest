@@ -1,7 +1,7 @@
 #include "define.h"
 #include "maps.h"
 
-int map[3][15][15] = {
+int map[MAX_STAGE][15][15] = {
     // 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
     // 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
     // 9, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 9,
@@ -69,13 +69,13 @@ int map[3][15][15] = {
 };
 
 int player[2];
-WORD ground_color[5] = {BLACK,
+WORD ground_color[MAX_STAGE] = {BLACK,
  FOREGROUND_GREEN | FOREGROUND_RED, 
  FOREGROUND_GREEN, 
  FOREGROUND_RED | FOREGROUND_GREEN, 
  FOREGROUND_RED | FOREGROUND_BLUE};
 
-WORD void_color[5] = {
+WORD void_color[MAX_STAGE] = {
     FOREGROUND_BLUE | FOREGROUND_GREEN,
     FOREGROUND_BLUE,
     FOREGROUND_RED | FOREGROUND_GREEN,
@@ -83,7 +83,7 @@ WORD void_color[5] = {
     BLACK
 };
 
-char stage_name[5][20] = {
+char stage_name[MAX_STAGE][20] = {
     "Stary Sky",
     "Underwater",
     "Desert",
