@@ -64,10 +64,11 @@ void Stack_push(Stack* s, Command value) {
 
 Command Stack_pop(Stack* s) {
     if (Stack_isEmpty(s)) {
-        printf("No step to undo!\n");
+        printf("\r已经是最开始的一步了！\n");
         Command emptyCommand = {0, -1, 0};
         return emptyCommand;
     }
+
     return s->arr[(s->top)--];
 }
 

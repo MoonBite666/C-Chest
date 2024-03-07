@@ -44,13 +44,13 @@ void Menu_stage(int state){
 }
 
 void Menu_ingame(int state){
-    printf(" \u25fc Select the menu\n");
+    printf("\t \u25fc菜单\n");
     if(state == 0) printf("->");
-    printf("\tRestart\n");
+    printf("\t重新开始\n");
     if(state == 1) printf("->");
-    printf("\tContinue\n");
+    printf("\t继续游戏\n");
     if(state == 2) printf("->");
-    printf("\tSave\n");
+    printf("\t保存游戏\n");
     if(state == 3) printf("->");
-    printf("\tExit\n");
+    printf("\t退出游戏\n");
 }

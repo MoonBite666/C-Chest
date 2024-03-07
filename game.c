@@ -58,7 +58,7 @@ void Load(int stage)
 }
 
 bool Map_cycle(int *crt_map){
-    printf("Stage %d : %s\n",crt_stage, stage_name[crt_stage]);
+    printf("关卡 %d : %s\n",crt_stage, stage_name[crt_stage]);
     bool win = true;
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){
@@ -73,13 +73,14 @@ bool Map_cycle(int *crt_map){
         }
         printf("\n");
     }
-    printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
-    printf("Press ESC to open the menu.\n");
-    printf("Your step: %d \n", crt_step[crt_stage]);
+    printf("      按\"方向键\" 来移动；\n     按Z键撤回上一步操作；\n");
+    printf("        按ESC进入菜单\n");
+    printf("        走过步数: %d \n", crt_step[crt_stage]);
+    printf("\r                           \n");
     if(win){
-        printf("You win!\nPress Enter to the next stage!\n");
+        printf("         你成功了！\n   按下Enter键前往下一关！\n");
         Updata_step();
-        printf("Your step: %d, Your best step: %d\n", crt_step[crt_stage], best_step[crt_stage]);
+        printf("  走过步数: %d, 最佳记录: %d\n", crt_step[crt_stage], best_step[crt_stage]);
         crt_stage++;
         farthest = crt_stage;
         int ch = getch();

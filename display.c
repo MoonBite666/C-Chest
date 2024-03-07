@@ -48,10 +48,10 @@ void Display_data(int data){
             printf("人");
             break;
         case VOIDBLOCK:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "  ");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "--");
             break;
         case EIGHTSTAR:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "星");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW, "星");
             break;
         default:
             break;
