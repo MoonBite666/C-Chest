@@ -80,7 +80,7 @@ bool Map_cycle(int *crt_map){
     }
     printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
     printf("Press ESC to open the menu.\n");
-    printf("Your step: %d\n", crt_step[crt_stage]);
+    printf("Your step: %d \n", crt_step[crt_stage]);
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
         Updata_step();
@@ -142,23 +142,29 @@ void Move(int target, int *crt_map, int dir){
     Command command;
     command.dir = dir;
     command.target = target;
+    bool chest = false;
+    if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST){
+        chest = true;
+        command.chest = true;
+    }
+    else command.chest = false;
     Stack_push(&history_command, command);//Add command history
     crt_step[crt_stage]++;
     switch(dir){
         case 0://DOWN
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target+COL);
+            if(chest) Move_chest(crt_map, target, target+COL);
             Move_player(crt_map, target-COL, target);
             break;
         case 1://UP
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target-COL);
+            if(chest) Move_chest(crt_map, target, target-COL);
             Move_player(crt_map, target+COL, target);
             break;
         case 2://LEFT
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target-1);
+            if(chest) Move_chest(crt_map, target, target-1);
             Move_player(crt_map, target+1, target);
             break;
         case 3://RIGHT
-            if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target+1);
+            if(chest) Move_chest(crt_map, target, target+1);
             Move_player(crt_map, target-1, target);
             break;
         default:
@@ -225,31 +231,24 @@ void Undo_command(int *crt_map, Stack *s){
     if(last_command.dir == -1) return;
     int dir = last_command.dir;
     int target = last_command.target;
+    bool chest = last_command.chest;
     crt_step[crt_stage]--;
     switch(dir){
         case 0://Last time: DOWN
             Move_player(crt_map, target, target-COL);
-            if(*(crt_map+target+COL) == CHEST || *(crt_map+target+COL) == GOALCHEST){
-                Move_chest(crt_map, target+COL, target);
-            }
+            if(chest) Move_chest(crt_map, target+COL, target);
             break;
         case 1://Last time: UP
             Move_player(crt_map, target, target+COL);
-            if(*(crt_map+target-COL) == CHEST || *(crt_map+target-COL) == GOALCHEST){
-                Move_chest(crt_map, target-COL, target);
-            }
+            if(chest) Move_chest(crt_map, target-COL, target);
             break;
         case 2://Last time: LEFT
             Move_player(crt_map, target, target+1);
-            if(*(crt_map+target-1) == CHEST || *(crt_map+target-1) == GOALCHEST){
-                Move_chest(crt_map, target-1, target);
-            }
+            if(chest) Move_chest(crt_map, target-1, target);
             break;
         case 3://Last time: RIGHT
             Move_player(crt_map, target, target-1);
-            if(*(crt_map+target+1) == CHEST || *(crt_map+target+1) == GOALCHEST){
-                Move_chest(crt_map, target+1, target);
-            }
+            if(chest) Move_chest(crt_map, target+1, target);
             break;
         default:
             break;

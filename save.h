@@ -3,6 +3,7 @@
 typedef struct {
     int target;
     int dir;
+    bool chest;
 } Command;
 
 typedef struct {

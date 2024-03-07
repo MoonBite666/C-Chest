@@ -6,17 +6,15 @@ extern int farthest;
 extern int best_step[MAX_STAGE];
 
 void Menu(int state){
-    //printf(" \u25fd Select the menu\n");
-    printf("\t+-+-+-+-+-+-+-+\n\t|C|-|C|h|e|s|t|\n\t+-+-+-+-+-+-+-+\n");
-    //printf(" \u25fb Select the menu\n");
+    printf("\t┏━╸   ┏━╸╻ ╻┏━╸┏━┓╺┳╸\n\t┃  ╺━╸┃  ┣━┫┣╸ ┗━┓ ┃ \n\t┗━╸   ┗━╸╹ ╹┗━╸┗━┛ ╹ \n");
     if(state == 0) printf("->");
-    printf("\t     Start\n");
+    printf("\t        Start\n");
     if(state == 1) printf("->");
-    printf("\t    Continue\n"); 
+    printf("\t       Continue\n"); 
     if(state == 2) printf("->");
-    printf("\t     Stage\n");
+    printf("\t        Stage\n");
     if(state == 3) printf("->");
-    printf("\t     Exit\n");
+    printf("\t         Exit\n");
 }
 
 
