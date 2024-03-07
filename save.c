@@ -65,8 +65,8 @@ void Stack_push(Stack* s, Command value) {
 
 Command Stack_pop(Stack* s) {
     if (Stack_isEmpty(s)) {
-        printf("Stack is empty!\n");
-        Command emptyCommand = {0, 0};
+        printf("No step to undo!\n");
+        Command emptyCommand = {0, -1};
         return emptyCommand;
     }
     return s->arr[(s->top)--];

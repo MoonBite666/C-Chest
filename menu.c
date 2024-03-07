@@ -7,16 +7,16 @@ extern int best_step[MAX_STAGE];
 
 void Menu(int state){
     //printf(" \u25fd Select the menu\n");
-    printf(" \u25fc Select the menu\n");
+    printf("\t+-+-+-+-+-+-+-+\n\t|C|-|C|h|e|s|t|\n\t+-+-+-+-+-+-+-+\n");
     //printf(" \u25fb Select the menu\n");
     if(state == 0) printf("->");
-    printf("\tStart\n");
+    printf("\t     Start\n");
     if(state == 1) printf("->");
-    printf("\tContinue\n"); 
+    printf("\t    Continue\n"); 
     if(state == 2) printf("->");
-    printf("\tStage\n");
+    printf("\t     Stage\n");
     if(state == 3) printf("->");
-    printf("\tExit\n");
+    printf("\t     Exit\n");
 }
 
 

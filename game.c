@@ -222,8 +222,10 @@ bool Next_frame(int *crt_map)
 
 void Undo_command(int *crt_map, Stack *s){
     Command last_command = Stack_pop(s);
+    if(last_command.dir == -1) return;
     int dir = last_command.dir;
     int target = last_command.target;
+    crt_step[crt_stage]--;
     switch(dir){
         case 0://Last time: DOWN
             Move_player(crt_map, target, target-COL);
