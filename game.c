@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <unistd.h>
 #include "game.h"
 #include "menu.h"
 #include "music.h"
@@ -36,12 +37,22 @@ void Init_timer(){
     _beginthread(&Start_timer, 0, &timer);
 }
 
+void Print_timer(bool end){
+    printf("\n");
+    while(end != 1){
+        usleep(1000);
+        printf("\rTime: %d", timer.time);
+    }
+    
+}
+
 void Load(int stage)
 {
     Stack_destroy(&history_command);
     Stack_init(&history_command);
 
     Init_timer();
+
 
     system("cls");
     if(stage > 5) return;//any new game mode can be added here
@@ -63,6 +74,8 @@ void Load(int stage)
         
     }
     while(1){
+        _beginthread(&Print_timer, 0, &timer.end);
+        printf("\n");
         if(Map_cycle(crt_map)){
             Stack_destroy(&history_command);
             SetConsoleTextAttribute(hConsole, BLACK);
@@ -74,7 +87,6 @@ void Load(int stage)
 
 bool Map_cycle(int *crt_map){
     printf("Stage %d : %s\n",crt_stage, stage_name[crt_stage]);
-    printf("Time: %d\n", timer.time);
     bool win = true;
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){
@@ -92,6 +104,8 @@ bool Map_cycle(int *crt_map){
     printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
+        timer.end = 1;
+        Save_time(crt_stage, timer.time);
         crt_stage++;
         farthest = crt_stage;
         int ch = getch();
@@ -175,6 +189,7 @@ void Move(int target, int *crt_map, int dir){
 
 bool Next_frame(int *crt_map)
 {
+
     int ch = getch();
     int addr = player[0]*COL + player[1];
     if(ch == 224){//Arrow

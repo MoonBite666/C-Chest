@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 #include "save.h"
 void Generate_map(int *crt_map, int stage);
