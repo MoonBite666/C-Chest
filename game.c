@@ -10,8 +10,12 @@ extern int map[MAX_STAGE][15][15];
 extern int player[2];
 extern int crt_stage;
 extern int farthest;
+extern int crt_step[MAX_STAGE];
+extern int best_step[MAX_STAGE];
 extern WORD ground_color[MAX_STAGE];
 extern char stage_name[MAX_STAGE][20];
+
+
 
 static COORD coord = {0,0};
 static Stack history_command;
@@ -75,8 +79,12 @@ bool Map_cycle(int *crt_map){
         printf("\n");
     }
     printf("Use \"Arrow Keys\" to move;\nuse CTRL+Z to Undo the last step. \n");
+    printf("Press ESC to open the menu.\n");
+    printf("Your step: %d\n", crt_step[crt_stage]);
     if(win){
         printf("You win!\nPress Enter to the next stage!\n");
+        Updata_step();
+        printf("Your step: %d, Your best step: %d\n", crt_step[crt_stage], best_step[crt_stage]);
         crt_stage++;
         farthest = crt_stage;
         int ch = getch();
@@ -135,6 +143,7 @@ void Move(int target, int *crt_map, int dir){
     command.dir = dir;
     command.target = target;
     Stack_push(&history_command, command);//Add command history
+    crt_step[crt_stage]++;
     switch(dir){
         case 0://DOWN
             if(*(crt_map+target) == CHEST || *(crt_map+target) == GOALCHEST) Move_chest(crt_map, target, target+COL);

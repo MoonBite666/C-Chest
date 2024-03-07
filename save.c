@@ -6,6 +6,9 @@
 int crt_stage;
 int farthest;
 
+int crt_step[MAX_STAGE] = {0};
+int best_step[MAX_STAGE] = {0};
+
 void Save_map(const int *crt_map){
     
     FILE *file;
@@ -73,4 +76,10 @@ void Stack_destroy(Stack* s) {
         s->top = -1;
     }
     
+}
+
+void Updata_step(){
+    if(crt_step[crt_stage] < best_step[crt_stage] || best_step[crt_stage] == 0){
+        best_step[crt_stage] = crt_step[crt_stage];
+    }
 }

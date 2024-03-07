@@ -13,6 +13,7 @@ typedef struct {
 
 void Save_map(const int *crt_map);
 bool Read_map(int *crt_map);
+void Updata_step();
 
 void Stack_init(Stack* s);
 int Stack_isEmpty(const Stack* s);
