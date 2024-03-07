@@ -6,8 +6,8 @@
 #include "maps.h"
 #include "save.h"
 
-extern WORD ground_color[5];
-extern WORD void_color[5];
+extern WORD ground_color[MAX_STAGE];
+extern WORD void_color[MAX_STAGE];
 extern int crt_stage;
 
 void Print_colored_text(HANDLE hConsole, WORD color, const char* text) {

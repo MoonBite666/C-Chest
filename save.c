@@ -33,9 +33,8 @@ bool Read_map(int *crt_map){
         return false;
     }
     fread(&best_step, sizeof(int), MAX_STAGE, file);
-    fread(&crt_stage, sizeof(int), 1, file);
+    fread(&farthest, sizeof(int), 1, file);
     fread(crt_map, sizeof(int), COL*ROW, file);
-
     fclose(file);
 
     return true;

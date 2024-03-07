@@ -31,10 +31,16 @@ void Menu_stage(int state){
         printf("->"); 
     }else if(state == 2) printf(" X ");
     printf("Stage 2 : %s  Best step: %d\n", stage_name[2], best_step[2]);
-    if(state == 3) printf("->");
+    if(state == 3 && farthest >= 3){
+        printf("->"); 
+    }else if(state == 3) printf(" X ");
+    printf("Stage 3 : %s  Best step: %d\n", stage_name[3], best_step[3]);
+    if(state == 4 && farthest >= 4){
+        printf("->");
+    }else if(state == 4) printf(" X ");
+    printf("Stage 4 : %s  Best step: %d\n", stage_name[4], best_step[4]);
+    if(state == 5) printf("->");
     printf("Back\n");
-    
-
 }
 
 void Menu_ingame(int state){

@@ -40,19 +40,14 @@ void Load(int stage)
     SetConsoleTextAttribute(hConsole, ground_color[stage]);
     
     int crt_map[15][15];
-    bool saved = false;
-    if(stage < 0) saved = Read_map(crt_map);
-    if(saved != true){
-        if(stage == 0){//New game
-            crt_stage = 0;
-            Generate_map(crt_map, 0);
-        }
-        else{
-            stage = farthest;
-            Generate_map(crt_map, stage);
-        }
-        
+    if(stage == -1){
+        stage = farthest;
+        Read_map(crt_map);
     }
+    else Generate_map(crt_map, stage);
+    
+    crt_stage = stage;
+
     while(1){
         if(Map_cycle(crt_map)){
             SetConsoleTextAttribute(hConsole, BLACK);
