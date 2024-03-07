@@ -8,37 +8,37 @@ extern int best_step[MAX_STAGE];
 void Menu(int state){
     printf("\t┏━╸   ┏━╸╻ ╻┏━╸┏━┓╺┳╸\n\t┃  ╺━╸┃  ┣━┫┣╸ ┗━┓ ┃ \n\t┗━╸   ┗━╸╹ ╹┗━╸┗━┛ ╹ \n");
     if(state == 0) printf("->");
-    printf("\t        Start\n");
+    printf("\t        开始\n");
     if(state == 1) printf("->");
-    printf("\t       Continue\n"); 
+    printf("\t        继续\n"); 
     if(state == 2) printf("->");
-    printf("\t        Stage\n");
+    printf("\t        关卡\n");
     if(state == 3) printf("->");
-    printf("\t         Exit\n");
+    printf("\t        退出\n");
 }
 
 
 
 void Menu_stage(int state){
-    printf("Select the stage\n");
+    printf("选择关卡\n");
     if(state == 0) printf("->");
-    printf("Stage 0 : %s Best step: %d\n", stage_name[0], best_step[0]);
+    printf("关卡 0 : %s Best step: %d\n", stage_name[0], best_step[0]);
     if(state == 1 && farthest >= 1){
         printf("->");
     }else if(state == 1) printf(" X ");
-    printf("Stage 1 : %s Best step: %d\n", stage_name[1], best_step[1]);
+    printf("关卡 1 : %s Best step: %d\n", stage_name[1], best_step[1]);
     if(state == 2 && farthest >= 2){
         printf("->"); 
     }else if(state == 2) printf(" X ");
-    printf("Stage 2 : %s  Best step: %d\n", stage_name[2], best_step[2]);
+    printf("关卡 2 : %s  Best step: %d\n", stage_name[2], best_step[2]);
     if(state == 3 && farthest >= 3){
         printf("->"); 
     }else if(state == 3) printf(" X ");
-    printf("Stage 3 : %s  Best step: %d\n", stage_name[3], best_step[3]);
+    printf("关卡 3 : %s  Best step: %d\n", stage_name[3], best_step[3]);
     if(state == 4 && farthest >= 4){
         printf("->");
     }else if(state == 4) printf(" X ");
-    printf("Stage 4 : %s  Best step: %d\n", stage_name[4], best_step[4]);
+    printf("关卡 4 : %s  Best step: %d\n", stage_name[4], best_step[4]);
     if(state == 5) printf("->");
     printf("Back\n");
 }

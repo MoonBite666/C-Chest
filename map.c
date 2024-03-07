@@ -115,9 +115,9 @@ WORD void_color[MAX_STAGE] = {
 };
 
 char stage_name[MAX_STAGE][20] = {
-    "Stary Sky",
-    "Underwater",
-    "Desert",
-    "Forest",
-    "Volcano"
+    "星空",
+    "海底",
+    "沙漠",
+    "丛林",
+    "火山"
 };
