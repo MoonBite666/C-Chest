@@ -23,7 +23,7 @@ int main(){
                     break;
                 case 1:
                     if(saved == true) Load(-1);
-                    else Load(0);
+                    else Load(farthest);
                     break;
                 case 2://Stage Menu
                     int ch1 = 0;
