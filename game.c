@@ -218,25 +218,25 @@ void Undo_command(int *crt_map, Stack *s){
     switch(dir){
         case 0://Last time: DOWN
             Move_player(crt_map, target, target-COL);
-            if(*(crt_map+target+COL) == CHEST || *(crt_map+target) == GOALCHEST){
+            if(*(crt_map+target+COL) == CHEST || *(crt_map+target+COL) == GOALCHEST){
                 Move_chest(crt_map, target+COL, target);
             }
             break;
         case 1://Last time: UP
             Move_player(crt_map, target, target+COL);
-            if(*(crt_map+target-COL) == CHEST || *(crt_map+target) == GOALCHEST){
+            if(*(crt_map+target-COL) == CHEST || *(crt_map+target-COL) == GOALCHEST){
                 Move_chest(crt_map, target-COL, target);
             }
             break;
         case 2://Last time: LEFT
             Move_player(crt_map, target, target+1);
-            if(*(crt_map+target-1) == CHEST || *(crt_map+target) == GOALCHEST){
+            if(*(crt_map+target-1) == CHEST || *(crt_map+target-1) == GOALCHEST){
                 Move_chest(crt_map, target-1, target);
             }
             break;
         case 3://Last time: RIGHT
             Move_player(crt_map, target, target-1);
-            if(*(crt_map+target+1) == CHEST || *(crt_map+target) == GOALCHEST){
+            if(*(crt_map+target+1) == CHEST || *(crt_map+target+1) == GOALCHEST){
                 Move_chest(crt_map, target+1, target);
             }
             break;
