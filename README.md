@@ -16,6 +16,6 @@ A windows console Sokoban game
 - [x]Menu in game
 - [x]Undo feature
 - [x]Save feature
-- [ ]Timers
+- [x]Step record
 - [ ]Neat UI
 - [ ]More BGM and SE

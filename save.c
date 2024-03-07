@@ -17,6 +17,7 @@ void Save_map(const int *crt_map){
         printf("Unable to open file.\n");
         return;
     }
+    fwrite(&best_step, sizeof(int), MAX_STAGE, file);
     fwrite(&crt_stage, sizeof(int), 1, file);
     fwrite(crt_map, sizeof(int), COL*ROW, file);
 
@@ -31,6 +32,7 @@ bool Read_map(int *crt_map){
     if (file == NULL) {
         return false;
     }
+    fread(&best_step, sizeof(int), MAX_STAGE, file);
     fread(&crt_stage, sizeof(int), 1, file);
     fread(crt_map, sizeof(int), COL*ROW, file);
 
