@@ -3,6 +3,12 @@
 [English](./README.md) [中文](./README_ZH.md)
 A windows console Sokoban game
 
+## About this branch
+
+This branch is developed to be compatible with non-Windows-Terminal CLI. It use Chinese character to build game UI.
+
+BGM feature and so on will be developed in this branch.
+
 ## Way to develop
 
 1. Git clone this repository
@@ -17,5 +23,5 @@ A windows console Sokoban game
 - [x]Undo feature
 - [x]Save feature
 - [x]Step record
-- [ ]Neat UI
+- [x]Neat UI
 - [ ]More BGM and SE
