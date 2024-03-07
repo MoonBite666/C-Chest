@@ -6,12 +6,12 @@
 #include "maps.h"
 #include "define.h"
 
-extern int map[1][15][15];
+extern int map[MAX_STAGE][15][15];
 extern int player[2];
 extern int crt_stage;
 extern int farthest;
-extern WORD ground_color[5];
-extern char stage_name[5][20];
+extern WORD ground_color[MAX_STAGE];
+extern char stage_name[MAX_STAGE][20];
 
 static COORD coord = {0,0};
 static Stack history_command;

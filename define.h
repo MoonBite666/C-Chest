@@ -1,6 +1,8 @@
 #define ROW 15
 #define COL 15
 
+#define MAX_STAGE 5
+
 #define WALL 1
 #define ROAD 0
 #define CHEST 2
