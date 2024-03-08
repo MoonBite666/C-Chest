@@ -58,7 +58,7 @@ void Load(int stage)
 }
 
 bool Map_cycle(int *crt_map){
-    printf("关卡 %d : %s\n",crt_stage, stage_name[crt_stage]);
+    printf("        关卡 %d : %s\n",crt_stage, stage_name[crt_stage]);
     bool win = true;
     for(int i = 0; i < ROW; i++){
         for(int j = 0; j < COL; j++){
@@ -76,7 +76,7 @@ bool Map_cycle(int *crt_map){
     printf("      按\"方向键\" 来移动；\n     按Z键撤回上一步操作；\n");
     printf("        按ESC进入菜单\n");
     printf("        走过步数: %d \n", crt_step[crt_stage]);
-    printf("\r                           \n");
+    printf("                           \n");
     if(win){
         printf("         你成功了！\n   按下Enter键前往下一关！\n");
         Updata_step();
@@ -109,6 +109,7 @@ bool Select(int *sel, int row)
         if((*sel) > row-1) (*sel) = 0;
     }
     if(ch == 13){//Enter
+        _beginthread(&SelectBeep, 0, NULL);
         return true;
     }
     return false;
@@ -201,7 +202,7 @@ bool Next_frame(int *crt_map)
                 switch(ch1){
                     case 0:
                         Generate_map(crt_map, crt_stage);
-                        break;
+                        return 0;
                     case 1:
                         return 0;
                     case 2:

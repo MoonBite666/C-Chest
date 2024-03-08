@@ -27,7 +27,7 @@ void Display_data(int data){
     
     switch(data){
         case WALL:
-            printf("口");
+            printf("##");
             break;
         case ROAD:
             printf("  ");

@@ -64,7 +64,7 @@ void Stack_push(Stack* s, Command value) {
 
 Command Stack_pop(Stack* s) {
     if (Stack_isEmpty(s)) {
-        printf("\r已经是最开始的一步了！\n");
+        printf("已经是最开始的一步了！\n");
         Command emptyCommand = {0, -1, 0};
         return emptyCommand;
     }

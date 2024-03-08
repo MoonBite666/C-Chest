@@ -45,15 +45,19 @@ int main(){
                                     break;
                                 case 1:
                                     if(farthest >= 1) Load(1);
+                                    else _beginthread(FailedBeep, 0, NULL);
                                     break;
                                 case 2:
                                     if(farthest >=2) Load(2);
+                                    else _beginthread(FailedBeep, 0, NULL);
                                     break;
                                 case 3:
                                     if(farthest >=3) Load(3);
+                                    else _beginthread(FailedBeep, 0, NULL);
                                     break;
                                 case 4:
                                     if(farthest >=4) Load(4);
+                                    else _beginthread(FailedBeep, 0, NULL);
                                     break;
                                 case 5:
                                     endmenu = 1;
