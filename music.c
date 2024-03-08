@@ -2,6 +2,21 @@
 #include <windows.h>
 #include <process.h>
 #include "music.h"
+#include "define.h"
+
+#pragma comment(lib, "winmm.lib")
+
+HRSRC hRes;
+HGLOBAL hMem;
+DWORD dwSize;
+void* pMem;
+
+void Init_rc(){
+    hRes = FindResource(NULL, MAKEINTRESOURCE(BGM_WAV), RT_RCDATA);
+    hMem = LoadResource(NULL, hRes);
+    dwSize = SizeofResource(NULL, hRes);
+    pMem = LockResource(hMem);
+}
 
 void SelectBeep(const void* data) {
     UNUSED(data);
@@ -22,18 +37,8 @@ void FailedBeep(const void* data){
     _endthread();
 }
 
-void MenuMusic(const void* data){
+void GameBGM(const void* data){
     UNUSED(data);
-    Beep(800, 100);
-    Beep(1000, 100);
-    Beep(1200, 100);
-    Beep(1500, 100);
-    Beep(1800, 100);
-    Beep(2000, 100);
-    Beep(1800, 100);
-    Beep(1500, 100);
-    Beep(1200, 100);
-    Beep(1000, 100);
-    Beep(800, 100);
+    PlaySound((LPCSTR)pMem, NULL, SND_MEMORY | SND_ASYNC | SND_LOOP);
     _endthread();
 }

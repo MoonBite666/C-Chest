@@ -4,4 +4,7 @@ project(C-Chest)
 
 aux_source_directory(. DIR_SRCS)
 
-add_executable(C-Chest ${DIR_SRCS})
+
+add_executable(C-Chest ${DIR_SRCS} bgm.rc)
+
+target_link_libraries(C-Chest winmm)

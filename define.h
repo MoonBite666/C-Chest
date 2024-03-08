@@ -23,3 +23,5 @@
 #define RIGHT 77
 
 #define MAX_UNDO 10000
+
+#define BGM_WAV 101

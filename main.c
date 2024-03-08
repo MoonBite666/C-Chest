@@ -5,13 +5,20 @@
 extern int crt_stage;
 extern int farthest;
 
+extern HRSRC hRes;
+extern HGLOBAL hMem;
+extern DWORD dwSize;
+extern void* pMem;
+
 static int tmp_map[15][15];
 static COORD coord = {0,0};
 
 int state = 0;
 int ch = 0;
 int main(){
+    Init_rc();
     SetConsoleOutputCP(CP_UTF8);
+    _beginthread(GameBGM, 0, NULL);
     while(1){
         system("cls");
         Menu(ch);
