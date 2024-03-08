@@ -74,6 +74,9 @@ void Display_data(int data){
         case BLOSSOM:
             printf("\xF0\x9F\x8C\xB8");
             break;
+        case FIRE:
+            printf("\xF0\x9F\x94\xA5");
+            break;
         default:
             break;
     }
