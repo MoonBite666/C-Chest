@@ -33,25 +33,46 @@ void Display_data(int data){
             printf("  ");
             break;
         case PLAYER:
-            printf("人");
+            printf("\xF0\x9F\x9A\xB6");
             break;
         case CHEST:
-            printf("箱");
+            printf("📦");
             break;
         case GOAL:
-            printf("乂");
+            printf("\xF0\x9F\x8E\xAF");
             break;
         case GOALCHEST:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "箱");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED, "📦");
             break;
         case GOALPLAYER:
-            printf("人");
+            printf("\xF0\x9F\x9A\xB6");
             break;
         case VOIDBLOCK:
             Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), void_color[crt_stage], "--");
             break;
         case EIGHTSTAR:
-            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW, "星");
+            Print_colored_text(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW, "\xF0\x9F\x8C\x9F");
+            break;
+        case FISH:
+            printf("\xF0\x9F\x90\x9F");
+            break;
+        case SHIP:
+            printf("\xE2\x9B\xB5");
+            break;
+        case OCTOPUS:
+            printf("\xF0\x9F\x90\x99");
+            break;
+        case WAVE:
+            printf("\xF0\x9F\x8C\x8A");
+            break;
+        case CACTUS:
+            printf("\xF0\x9F\x8C\xB5");
+            break;
+        case PALM:
+            printf("\xF0\x9F\x8C\xB4");
+            break;
+        case BLOSSOM:
+            printf("\xF0\x9F\x8C\xB8");
             break;
         default:
             break;
