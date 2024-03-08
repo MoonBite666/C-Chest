@@ -17,6 +17,12 @@ BGM feature and so on will be developed in this branch.
 
 - If you're using some other IDEs, just run 'cmake ." command to substitude process 2.
 
+## BGM Source list
+
+The game uses a demo project BGM from the GPL-OpenSource project [furnace](https://github.com/tildearrow/furnace). The information of the BGM are as follows:
+Name: You're Doing Well!
+Author: TheDuccinator
+
 ## Todo list
 
 - [x]Menu in game
