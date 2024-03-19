@@ -58,3 +58,6 @@ dkms.conf
 .vscode/settings.json
 build
 build/*
+doc/doc.docx
+doc/~$doc.docx
+doc/.$structure.svg.bkp

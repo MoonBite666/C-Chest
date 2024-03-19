@@ -250,6 +250,5 @@ void Undo_command(int *crt_map, Stack *s){
         default:
             break;
     }
-    //Add undo se here
-    
+    //Add undo se here   
 }
